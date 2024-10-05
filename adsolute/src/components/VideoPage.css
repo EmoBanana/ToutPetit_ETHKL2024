@@ -1,0 +1,61 @@
+.video-page {
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+
+.video-page video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid black;
+}
+
+.video-page h2 {
+  font-family: "Lazydog";
+  font-weight: normal;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  line-height: 1rem;
+}
+
+.videopage-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.videopage-actions .channel-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.videopage-actions .creator {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.videopage-actions h1 {
+  font-family: "Lazydog";
+  font-weight: normal;
+  font-size: 1.2rem;
+  color: #5f5858;
+  line-height: 0.8rem;
+}
+
+.video-actions button {
+  border: 2px solid black;
+  border-radius: 0.375rem;
+  box-shadow: 4px 4px 0px black;
+  background-color: #f1e7d3;
+  margin-right: 0.6rem;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-family: "Lazydog";
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  transition: all 0.3s;
+  cursor: pointer;
+}

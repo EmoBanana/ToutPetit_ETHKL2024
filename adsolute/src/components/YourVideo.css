@@ -1,0 +1,60 @@
+.yourvideo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.yourvideo-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 3rem;
+  margin-top: 3rem;
+}
+
+.yourvideo {
+  flex: 1;
+  max-width: 32%;
+  cursor: pointer;
+}
+
+.yourvideo img {
+  width: 100%;
+  height: auto;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.yourvideo-title-container {
+  display: flex;
+  align-items: center;
+  margin-top: 0.1rem;
+}
+
+.yourvideo-title-container .creator {
+  width: 40px;
+  height: 35px;
+  margin-right: 8px;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+}
+
+.yourvideo-title-container-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.yourvideo h1 {
+  font-family: "Lazydog";
+  font-weight: normal;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.yourvideo h2 {
+  font-family: "Lazydog";
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: 0.2rem;
+  color: #5f5858;
+}
