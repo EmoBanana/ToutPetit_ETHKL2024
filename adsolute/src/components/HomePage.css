@@ -1,0 +1,60 @@
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.video-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 3rem;
+  margin-top: 3rem;
+}
+
+.video {
+  flex: 1;
+  max-width: 24%;
+  cursor: pointer;
+}
+
+.video img {
+  width: 100%;
+  height: auto;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  margin-top: 0.1rem;
+}
+
+.title-container .creator {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+}
+
+.title-container-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.video h1 {
+  font-family: "Lazydog";
+  font-weight: normal;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.video h2 {
+  font-family: "Lazydog";
+  font-weight: normal;
+  font-size: 0.8rem;
+  line-height: 0.2rem;
+  color: #5f5858;
+}

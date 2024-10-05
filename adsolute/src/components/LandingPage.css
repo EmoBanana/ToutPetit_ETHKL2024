@@ -1,0 +1,180 @@
+@font-face {
+  font-family: "Lazydog";
+  src: url("../Lazydog.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f6dcac;
+  font-family: "Lazydog", sans-serif;
+  overflow: hidden;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.site-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0.8rem 1.2rem;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.text-container {
+  text-align: left;
+  width: 32%;
+}
+
+.static-text {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.typing-text {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline;
+  position: relative;
+  padding-right: 0.3em;
+}
+
+.typing-text::after {
+  content: "|";
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-family: "Lazydog";
+  font-size: 3rem;
+  color: #333;
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: #333;
+  }
+}
+
+.connect-button {
+  border: 2px solid black;
+  border-radius: 0.375rem;
+  box-shadow: 4px 4px 0px black;
+  background-color: #f1e7d3;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1rem;
+  margin-left: 0.4rem;
+  font-size: 1.2rem;
+  font-family: "Lazydog";
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+  transition: all 0.3s;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.connect-button:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 5px 5px 0px #5f5858;
+}
+
+.connect-button:active {
+  transform: translate(0, 0);
+  border-radius: 1.5rem;
+  box-shadow: none;
+}
+
+.connect-container {
+  position: relative;
+  width: 650px; /* Adjust according to your image size */
+  height: 650px; /* Adjust according to your image size */
+  perspective: 1000px;
+}
+
+.player {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s ease-in-out, z-index 0s step-end;
+}
+
+.image-A {
+  z-index: 2;
+}
+
+.image-B {
+  z-index: 1;
+}
+
+.first-image-active .image-A {
+  animation: moveFrontToBack 0.8s ease forwards;
+}
+
+.first-image-active .image-B {
+  animation: moveBackToFront 0.8s ease forwards;
+}
+
+.second-image-active .image-A {
+  animation: moveBackToFront 0.8s ease forwards;
+}
+
+.second-image-active .image-B {
+  animation: moveFrontToBack 0.8s ease forwards;
+}
+
+@keyframes moveFrontToBack {
+  0% {
+    transform: translate(0, 0);
+    z-index: 2;
+  }
+  100% {
+    transform: translate(15px, 15px); /* Slight offset to right and down */
+    z-index: 1;
+  }
+}
+
+@keyframes moveBackToFront {
+  0% {
+    transform: translate(20px, 20px);
+    z-index: 1;
+  }
+  50% {
+    transform: translate(430px, 0); /* Fully moves out to the right */
+    z-index: 1; /* Keeps z-index below during move out */
+  }
+  51% {
+    z-index: 2; /* Changes z-index only after moving out */
+  }
+  100% {
+    transform: translate(0, 0); /* Brings it on top of the front image */
+  }
+}
