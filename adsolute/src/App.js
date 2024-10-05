@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import { useWallet } from "./WalletContext";
 
 import LandingPage from "./components/LandingPage";
@@ -10,19 +15,76 @@ import UnverifiedCreators from "./components/UnverifiedCreators";
 import YourVideo from "./components/YourVideo";
 import Liked from "./components/Liked";
 
-function App() {
+const ProtectedRoute = ({ children }) => {
   const { walletAddress } = useWallet();
+  return walletAddress ? children : <Navigate to="/" replace />;
+};
 
+const WalletConnectedRoute = ({ children }) => {
+  const { walletAddress } = useWallet();
+  return walletAddress ? <Navigate to="/home" replace /> : children;
+};
+
+function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/video/:id" element={<VideoPage />} />
-        <Route path="/marketplace" element={<Marketplace />} />
-        <Route path="/unverified" element={<UnverifiedCreators />} />
-        <Route path={`/channel/${walletAddress}`} element={<YourVideo />} />
-        <Route path="/liked" element={<Liked />} />
+        <Route
+          path="/"
+          element={
+            <WalletConnectedRoute>
+              <LandingPage />
+            </WalletConnectedRoute>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/video/:id"
+          element={
+            <ProtectedRoute>
+              <VideoPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/marketplace"
+          element={
+            <ProtectedRoute>
+              <Marketplace />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/unverified"
+          element={
+            <ProtectedRoute>
+              <UnverifiedCreators />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/channel/:address"
+          element={
+            <ProtectedRoute>
+              <YourVideo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/liked"
+          element={
+            <ProtectedRoute>
+              <Liked />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

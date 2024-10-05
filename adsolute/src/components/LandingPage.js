@@ -18,6 +18,12 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (walletAddress) {
+      navigate("/home");
+    }
+  }, [walletAddress, navigate]);
+
+  useEffect(() => {
     const phrases = ["ADSOLUTE", "AD-FREE STREAMING", "TOKENIZED AD STREAMING"];
     const currentPhrase = phrases[currentPhraseIndex];
     let timer;

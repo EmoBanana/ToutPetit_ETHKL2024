@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
+import { useWallet } from "../WalletContext";
 import "./HomePage.css";
 
 const HomePage = () => {
+  const { walletAddress } = useWallet();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!walletAddress) {
+      navigate("/");
+    }
+  }, [walletAddress, navigate]);
 
   const handleVideoClick = (id) => {
     navigate(`/video/${id}`);

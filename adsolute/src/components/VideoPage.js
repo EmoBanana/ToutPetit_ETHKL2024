@@ -168,52 +168,51 @@ const VideoPage = () => {
     if (!account) return;
 
     try {
-      const response = await fetch('/api/updateTokens', {
-        method: 'POST',
+      const response = await fetch("/api/mintTokensForAd", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ address: account.address, amount: adCount }),
+        body: JSON.stringify({ address: account.address }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update tokens');
+        throw new Error("Failed to mint tokens");
       }
 
       const data = await response.json();
-      console.log('Tokens minted', data.newTokenCount);
+      console.log("Tokens minted", data.newTokenCount);
     } catch (error) {
-      console.error('Error updating tokens:', error);
+      console.error("Error minting tokens:", error);
     }
   };
 
-  const updateTokenCountAfterInteraction = async (tokenCost, interactionType, add) => {
+  const updateTokenCountAfterInteraction = async (interactionType, add) => {
     if (!account) return false;
 
     try {
-      const response = await fetch('/api/interaction', {
-        method: 'POST',
+      const response = await fetch("/api/interaction", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ 
-          address: account.address, 
-          tokenCost, 
-          interactionType, 
-          add, 
-          videoId: id 
+        body: JSON.stringify({
+          address: account.address,
+          interactionType,
+          add,
+          videoId: id,
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update interaction');
+        throw new Error("Failed to update interaction");
       }
 
       const data = await response.json();
-      console.log('Interaction successful. Tokens left:', data.newTokenCount);
+      console.log("Interaction successful. Tokens left:", data.newTokenCount);
       return true;
     } catch (error) {
-      console.error('Error updating interaction:', error);
+      console.error("Error updating interaction:", error);
       confirmPopup("Failed to process interaction.", () => {});
       return false;
     }

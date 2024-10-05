@@ -19,20 +19,21 @@ const MarketPlace = () => {
     }
 
     try {
-      const tokenData =
-        JSON.parse(localStorage.getItem("walletTokenData")) || {};
-      const walletTokenData = tokenData[walletAddress] || { tokenCount: 0 };
+      const response = await fetch("/api/purchaseNFT", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          address: walletAddress,
+          itemId,
+          tokenCost,
+        }),
+      });
 
-      if (walletTokenData.tokenCount < tokenCost) {
-        setPopupMessage("Insufficient tokens to redeem this NFT.");
-        setPopupMode("notification");
-        setShowPopup(true);
-        return;
+      if (!response.ok) {
+        throw new Error("Failed to purchase NFT");
       }
-
-      walletTokenData.tokenCount -= tokenCost;
-      tokenData[walletAddress] = walletTokenData;
-      localStorage.setItem("walletTokenData", JSON.stringify(tokenData));
 
       setPopupMessage("You have successfully redeemed this NFT!");
       setPopupMode("notification");
