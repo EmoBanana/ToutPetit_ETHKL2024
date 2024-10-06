@@ -15,13 +15,16 @@ const Nav = ({ children }) => {
   useEffect(() => {
     const savedAdCount = localStorage.getItem("adCount");
     if (savedAdCount) {
-      setAdCount(parseInt(savedAdCount, 10) || 0);
+      setAdCount(parseInt(savedAdCount, 10) || 0); // Ensure adCount is a number
     }
 
     if (walletAddress) {
+      // Retrieve token count specific to the wallet address
       const tokenData =
         JSON.parse(localStorage.getItem("walletTokenData")) || {};
       const walletTokenData = tokenData[walletAddress] || {};
+
+      // Ensure tokenCount is a number
       setTokenCount(walletTokenData.tokenCount || 0);
     }
   }, [walletAddress]);
@@ -63,7 +66,7 @@ const Nav = ({ children }) => {
   const handleAdCountChange = (count) => {
     if (count !== adCount) {
       setAdCount(count);
-      localStorage.setItem("adCount", count);
+      localStorage.setItem("adCount", count); // Save the selected ad count
       setAdMenuOpen(false);
     }
   };
@@ -79,7 +82,8 @@ const Nav = ({ children }) => {
         <div className="search-bar-container">
           <input type="text" className="search-bar" placeholder="Search..." />
         </div>
-        <h1 className="tokenCount">{Number(tokenCount)} Tokens</h1>
+        <h1 className="tokenCount">{Number(tokenCount)} Tokens</h1>{" "}
+        {/* Ensure tokenCount is a number */}
         <button className="ads-button" onClick={toggleAdMenu}>
           Ads
         </button>
@@ -197,7 +201,7 @@ const Nav = ({ children }) => {
           <button className="side-bar-button">Help</button>
           <button className="side-bar-button">Send Feedback</button>
         </div>
-        {children}
+        <div className="page-content">{children}</div>
       </div>
     </div>
   );

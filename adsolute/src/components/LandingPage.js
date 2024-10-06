@@ -60,13 +60,13 @@ const LandingPage = () => {
         <h1 className="site-title">Adsolute.</h1>
       </header>
       <div className="content">
+        <img src="/ethkl.png" alt="ETHKL2024" className="eth-img"></img>
         <div className="text-container">
           <div className="static-text">WELCOME TO</div>
           <div className="typing-text">{text}</div>
           <div className="button">
-            {/* Render WalletConnect only if walletAddress is null */}
             {walletAddress ? (
-              <p>Wallet Connected</p> // Optionally show a message if connected
+              <p>Wallet Connected</p>
             ) : (
               <WalletConnect onConnect={handleWalletConnect} />
             )}

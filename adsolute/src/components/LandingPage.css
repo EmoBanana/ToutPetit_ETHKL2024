@@ -114,67 +114,8 @@
   perspective: 1000px;
 }
 
-.player {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.8s ease-in-out, z-index 0s step-end;
-}
-
-.image-A {
-  z-index: 2;
-}
-
-.image-B {
-  z-index: 1;
-}
-
-.first-image-active .image-A {
-  animation: moveFrontToBack 0.8s ease forwards;
-}
-
-.first-image-active .image-B {
-  animation: moveBackToFront 0.8s ease forwards;
-}
-
-.second-image-active .image-A {
-  animation: moveBackToFront 0.8s ease forwards;
-}
-
-.second-image-active .image-B {
-  animation: moveFrontToBack 0.8s ease forwards;
-}
-
-@keyframes moveFrontToBack {
-  0% {
-    transform: translate(0, 0);
-    z-index: 2;
-  }
-  100% {
-    transform: translate(15px, 15px); /* Slight offset to right and down */
-    z-index: 1;
-  }
-}
-
-@keyframes moveBackToFront {
-  0% {
-    transform: translate(20px, 20px);
-    z-index: 1;
-  }
-  50% {
-    transform: translate(430px, 0); /* Fully moves out to the right */
-    z-index: 1; /* Keeps z-index below during move out */
-  }
-  51% {
-    z-index: 2; /* Changes z-index only after moving out */
-  }
-  100% {
-    transform: translate(0, 0); /* Brings it on top of the front image */
-  }
+.eth-img {
+  width: 25rem;
+  margin-top: 1.4rem;
+  margin-right: 3.5rem;
 }

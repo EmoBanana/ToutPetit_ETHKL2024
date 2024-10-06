@@ -15,7 +15,7 @@ const VideoPage = () => {
   const { id } = useParams();
   const videoRef = useRef(null);
   const adVideoRef = useRef(null);
-  const { account } = useWallet();
+  const { walletAddress } = useWallet();
 
   const [adCount] = useState(parseInt(localStorage.getItem("adCount")) || 0);
   const [currentAdIndex, setCurrentAdIndex] = useState(0);
@@ -119,7 +119,7 @@ const VideoPage = () => {
   const loadInteractionState = useCallback(() => {
     console.log("Loading interaction state for video:", id);
     const tokenData = JSON.parse(localStorage.getItem("walletTokenData")) || {};
-    let userTokens = tokenData[account?.address] || {
+    let userTokens = tokenData[walletAddress] || {
       tokenCount: 0,
       likedVideos: [],
       dislikedVideos: [],
@@ -138,13 +138,13 @@ const VideoPage = () => {
     setIsLiked(newIsLiked);
     setIsDisliked(newIsDisliked);
     setIsSubscribed(newIsSubscribed);
-  }, [id, account?.address]);
+  }, [id, walletAddress]);
 
   useEffect(() => {
-    if (account?.address) {
+    if (walletAddress) {
       loadInteractionState();
     }
-  }, [account?.address, loadInteractionState]);
+  }, [walletAddress, loadInteractionState]);
 
   const handleAdEnded = () => {
     const nextAdIndex = currentAdIndex + 1;
@@ -158,37 +158,41 @@ const VideoPage = () => {
         console.error("Main video playback error:", error);
       });
 
-      if (account?.address) {
+      if (walletAddress) {
         updateTokenCount();
       }
     }
   };
 
   const updateTokenCount = async () => {
-    if (!account) return;
+    if (!walletAddress) return;
 
     try {
-      const response = await fetch("/api/mintTokensForAd", {
+      const response = await fetch("/api/updateTokens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ address: account.address }),
+        body: JSON.stringify({ address: walletAddress, amount: adCount }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to mint tokens");
+        throw new Error("Failed to update tokens");
       }
 
       const data = await response.json();
       console.log("Tokens minted", data.newTokenCount);
     } catch (error) {
-      console.error("Error minting tokens:", error);
+      console.error("Error updating tokens:", error);
     }
   };
 
-  const updateTokenCountAfterInteraction = async (interactionType, add) => {
-    if (!account) return false;
+  const updateTokenCountAfterInteraction = async (
+    tokenCost,
+    interactionType,
+    add
+  ) => {
+    if (!walletAddress) return false;
 
     try {
       const response = await fetch("/api/interaction", {
@@ -197,7 +201,8 @@ const VideoPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          address: account.address,
+          address: walletAddress,
+          tokenCost,
           interactionType,
           add,
           videoId: id,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useWallet } from "./WalletContext";
+import { initializeContract } from "./contractService";
 
 import LandingPage from "./components/LandingPage";
 import HomePage from "./components/HomePage";
@@ -26,6 +27,18 @@ const WalletConnectedRoute = ({ children }) => {
 };
 
 function App() {
+  const { walletAddress } = useWallet();
+
+  useEffect(() => {
+    if (walletAddress) {
+      initializeContract()
+        .then(() => console.log("Contract initialized successfully"))
+        .catch((error) =>
+          console.error("Failed to initialize contract:", error)
+        );
+    }
+  }, [walletAddress]);
+
   return (
     <Router>
       <Routes>
